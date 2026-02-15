@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recruiter Dashboard | SkillBridge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="recruiter-dashboard">
+  <div class="dashboard">
+    <div class="sidebar">
+      <h2>Recruiter</h2>
+      <ul>
+        <li onclick="showSection('dashboardSection')">Dashboard</li>
+        <li onclick="showSection('postsSection')">Your Posts</li>
+        <li onclick="showSection('applicationsSection')">Applications</li>
+        <li onclick="logout()">Logout</li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <!-- DASHBOARD -->
+      <div id="dashboardSection">
+        <div class="header">
+          <h1>Recruiter Dashboard</h1>
+          <button class="btn btn-primary" onclick="openModal()">+ Post Job</button>
+        </div>
+
+        <div style="margin-top:20px;display:flex;gap:20px;">
+          <div class="job-card" style="width:200px;">
+            <h3>Total Jobs</h3>
+            <p id="totalJobs">0</p>
+          </div>
+
+          <div class="job-card" style="width:200px;">
+            <h3>Total Applications</h3>
+            <p id="totalApplications">0</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- YOUR POSTS -->
+      <div id="postsSection" class="hidden">
+        <div class="header">
+          <h1>Your Posts</h1>
+          <button class="btn btn-primary" onclick="openModal()">+ Post Job</button>
+        </div>
+
+        <input type="text" id="search" placeholder="Search jobs..." oninput="searchJobs()">
+        <div id="jobsContainer"></div>
+      </div>
+
+      <!-- APPLICATIONS -->
+      <div id="applicationsSection" class="hidden">
+        <h1>Applicants</h1>
+        <div id="applicationsContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOB MODAL -->
+  <div class="modal" id="jobModal">
+    <div class="modal-content">
+      <h3>Job Form</h3>
+
+      <input type="text" id="jobTitle" placeholder="Job Title">
+      <input type="text" id="companyName" placeholder="Company Name">
+      <input type="text" id="location" placeholder="Location">
+      <select id="jobType">
+        <option value="">Job Type</option>
+        <option>Full-Time</option>
+        <option>Part-Time</option>
+        <option>Contract</option>
+        <option>Remote</option>
+      </select>
+      <select id="experience">
+        <option value="">Experience Level</option>
+        <option>Entry</option>
+        <option>Mid</option>
+        <option>Senior</option>
+      </select>
+      <input type="text" id="salary" placeholder="Salary Range">
+      <input type="text" id="skills" placeholder="Required Skills (comma separated)">
+      <textarea id="description" placeholder="Job Description"></textarea>
+      <textarea id="requirements" placeholder="Requirements"></textarea>
+      <textarea id="responsibilities" placeholder="Responsibilities"></textarea>
+      <textarea id="benefits" placeholder="Benefits"></textarea>
+
+      <button class="btn btn-success" onclick="saveJob()">Save</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="recruiter.js"></script>
+</body>
+</html>

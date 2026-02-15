@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Freelancer Dashboard | SkillBridge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="freelancer-dashboard">
+    <div class="dashboard">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="logo">SkillBridge</div>
+        <ul>
+          <li class="active" onclick="showSection('dashboardSection')">Dashboard</li>
+          <li onclick="showSection('profileSection')">Profile</li>
+          <li onclick="showSection('jobsSection')">Available Jobs</li>
+          <li onclick="showSection('applicationsSection')">My Applications</li>
+          <li onclick="logout()">Logout</li>
+        </ul>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <!-- DASHBOARD SECTION -->
+        <div id="dashboardSection" class="section">
+          <div class="header">
+            <div>
+              <h1>Freelancer Dashboard</h1>
+              <p>Welcome, <span id="freelancerName"></span></p>
+            </div>
+          </div>
+
+          <div class="stats-container">
+            <div class="stat-card">
+              <h3>Total Jobs</h3>
+              <p id="totalJobs">0</p>
+            </div>
+            <div class="stat-card">
+              <h3>Total Applications</h3>
+              <p id="totalApplications">0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROFILE SECTION -->
+        <div id="profileSection" class="section hidden">
+          <div class="header">
+            <h1>My Profile</h1>
+          </div>
+
+          <div class="job-card">
+            <h2>Profile Details</h2>
+
+            <label for="name">Name</label>
+            <input type="text" id="name">
+
+            <label for="experience">Experience</label>
+            <input type="text" id="experience">
+
+            <label for="education">Education</label>
+            <input type="text" id="education">
+
+            <label for="skills">Skills</label>
+            <input type="text" id="skills">
+
+            <label for="tech">Tech Stack</label>
+            <input type="text" id="tech">
+
+            <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+          </div>
+        </div>
+
+        <!-- AVAILABLE JOBS SECTION -->
+        <div id="jobsSection" class="section hidden">
+          <div class="header">
+            <h1>Available Jobs</h1>
+          </div>
+          <div id="jobsContainer"></div>
+        </div>
+
+        <!-- APPLICATIONS SECTION -->
+        <div id="applicationsSection" class="section hidden">
+          <div class="header">
+            <h1>My Applications</h1>
+          </div>
+          <div id="applicationsContainer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="freelancer.js"></script>
+</body>
+</html>
