@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SkillBridge - Job Listings</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 class="logo">⚡ SkillBridge</h2>
+        <nav>
+            <ul>
+                <li><button onclick="navigate('dashboard.html')">Dashboard</button></li>
+                <li class="active"><button onclick="navigate('job_listing.html')">Job Listings</button></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+        <div class="topbar">
+            <h1>Job Listings</h1>
+            <button class="primary-btn" onclick="navigate('create_job.html')">+ Post New Job</button>
+        </div>
+
+        <div id="jobContainer"></div>
+    </main>
+</div>
+</body>
+</html>

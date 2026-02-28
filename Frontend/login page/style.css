@@ -1,0 +1,312 @@
+/* =====================================
+   1. RESET
+===================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* =====================================
+   2. PAGE LAYOUT
+===================================== */
+body {
+  height: 100vh;
+  background: linear-gradient(120deg, #5f7483, #6c8da4); /* keep light bg */
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================
+   3. LOGIN CARD
+===================================== */
+.login-card {
+  width: 380px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 30px 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease;
+}
+
+/* =====================================
+   4. LOGO + SUBTITLE
+===================================== */
+.logo {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.logo span {
+  color: #001f4d; /* navy accent for logo */
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 22px;
+}
+
+/* =====================================
+   5. ROLE TOGGLE
+===================================== */
+.role-toggle {
+  position: relative;
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+/* Sliding background */
+.role-toggle::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 0;                  
+  width: 50%;               
+  height: calc(100% - 8px);
+  background: #001f4d; /* navy */
+  border-radius: 8px;
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+/* Slider moves when Client is active */
+.role-toggle.client-active::before {
+  left: 50%;
+}
+
+/* Buttons */
+.role-toggle button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #6b7280;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.role-toggle button.active {
+  color: #ffffff;
+}
+
+/* =====================================
+   6. INPUT FIELDS (Single Line + Icons)
+===================================== */
+.input-group {
+  position: relative;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.input-group input {
+  flex: 1;
+  width: 100%;
+  padding: 10px 35px 10px 30px; /* left space for icon, right for eye */
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px solid #d1d5db;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-bottom-color: #001f4d; /* navy focus */
+  transform: translateY(-4px);
+}
+
+/* Left icon */
+.input-group .icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* Eye icon */
+.input-group .eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* =====================================
+   7. FORGOT PASSWORD
+===================================== */
+.forgot {
+  text-align: right;
+  margin-bottom: 18px;
+}
+
+.forgot a {
+  font-size: 13px;
+  color: #001f4d; /* navy */
+  text-decoration: none;
+}
+
+.forgot a:hover {
+  opacity: 0.8;
+}
+
+/* =====================================
+   8. MAIN BUTTON
+===================================== */
+.login-btn {
+  width: 100%;
+  max-width: 100%;
+  padding: 13px;
+  background: linear-gradient(90deg, #001f4d, #003366); /* navy gradient */
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 31, 77, 0.35);
+  transition: all 0.25s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 31, 77, 0.45);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+/* =====================================
+   9. DIVIDER
+===================================== */
+.divider {
+  text-align: center;
+  margin: 22px 0;
+  position: relative;
+}
+
+.divider span {
+  background: #ffffff;
+  padding: 0 12px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #e5e7eb;
+  z-index: -1;
+}
+
+/* =====================================
+   10. SOCIAL LOGIN
+===================================== */
+.social-login {
+  display: flex;
+  gap: 10px;
+}
+
+.social-login button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.social-login button:hover {
+  transform: translateY(-2px);
+  border-color: #001f4d; /* navy border */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.social-login button:active {
+  transform: translateY(0);
+}
+
+/* =====================================
+   11. REGISTER TEXT
+===================================== */
+.register {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.register a {
+  color: #001f4d; /* navy link */
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.register a:hover {
+  opacity: 0.8;
+}
+
+/* =====================================
+   12. ANIMATIONS
+===================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FORM LAYOUT FIXES */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-card form {
+  width: 100%;
+}
+
+/* Page transition */
+body {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+body.fade-out {
+  opacity: 0;
+}

@@ -1,0 +1,265 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: #fff;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  z-index: 10;
+  align-items: center;
+}
+
+.navbar nav a {
+  margin: 0 12px;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.badge {
+  background: #10b981; /* visible badge */
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.logout-btn {
+  margin-left: 15px;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  opacity: 0.85;
+}
+
+/* ================= HERO ================= */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+.hero h1 span {
+  background: linear-gradient(to right, #22c55e, #eab308);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 20px auto;
+  color: #cbd5e1;
+}
+
+.hero .pill {
+  display: inline-block;
+  background: #1e293b;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+/* HERO BUTTONS */
+.hero .cta {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.primary-btn, .secondary-btn {
+  min-width: 160px;
+  font-size: 1rem;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.primary-btn {
+  background: #10b981;
+  border: none;
+  color: #fff;
+}
+
+.primary-btn:hover {
+  opacity: 0.85;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #fff;
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ================= SECTIONS ================= */
+.section {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.section.light {
+  background: #f8fafc;
+  color: #000;
+}
+
+.subtitle {
+  color: #64748b;
+  margin: 15px 0 40px;
+}
+
+/* ================= CARDS ================= */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 25px;
+  border-radius: 12px;
+  background: #fff;
+  color: #000;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: default;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* ================= JOIN SECTION ================= */
+.join-box {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.join-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  width: 300px;
+  text-align: center;
+}
+
+.join-card h3 {
+  margin-bottom: 12px;
+}
+
+.join-card p {
+  margin-bottom: 20px;
+  color: #64748b;
+}
+
+.join-card.outline {
+  border: 2px solid #fbbf24;
+}
+
+/* ================= STEPS ================= */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.step {
+  background: #1e293b;
+  padding: 20px 30px;
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  background: #020617;
+  padding: 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  color: #94a3b8;
+}
+
+footer h4 {
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+footer a {
+  display: block;
+  color: #94a3b8;
+  margin-top: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  color: #10b981;
+}
+
+/* ================= RESPONSIVE ================= */
+@media screen and (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero .cta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .join-box {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

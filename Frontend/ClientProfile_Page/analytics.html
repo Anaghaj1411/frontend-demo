@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SkillBridge - Analytics</title>
+    <link rel="stylesheet" href="style.css"> <!-- your main dashboard css -->
+    <script defer src="script.js"></script> <!-- sidebar logic -->
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Sidebar (same as dashboard) -->
+    <aside class="sidebar">
+        <h2 class="logo">⚡ SkillBridge</h2>
+
+        <div class="user-info">
+            <p>Logged in as</p>
+            <h3>diksha.rade24</h3>
+            <span class="role">Client</span>
+        </div>
+
+        <nav>
+            <ul>
+                <li><button onclick="navigate('dashboard.html')">Dashboard</button></li>
+                <li><button onclick="navigate('analytics.html')"> Analytics</button></li>
+                <li><button onclick="navigate('job_listing.html')">Job Listings</button></li>
+                <li><button onclick="navigate('messages.html')">Messages</button></li>
+                <li><button onclick="navigate('payments.html')">Payments</button></li>
+                <li><button onclick="navigate('profile.html')">Profile</button></li>
+            </ul>
+        </nav>
+
+        <div class="bottom-links">
+            <button onclick="navigate('settings.html')">Settings</button>
+            <button onclick="navigate('help_Center.html')">Help & Support</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <div class="topbar">
+            <div>
+                <h1> Analytics</h1>
+                <p>Overview of job performance and hiring pipeline</p>
+            </div>
+        </div>
+
+        <!-- Cards -->
+        <div class="analytics-cards">
+            <div class="analytics-card">
+                <h4>Total Jobs</h4>
+                <h2 id="totalJobs">0</h2>
+            </div>
+
+            <div class="analytics-card">
+                <h4>Total Applications</h4>
+                <h2 id="totalApplications">0</h2>
+            </div>
+
+            <div class="analytics-card">
+                <h4>Pending</h4>
+                <h2 id="pendingCardCount">0</h2>
+            </div>
+
+            
+        </div>
+
+        <!-- Applications Per Job -->
+        <div class="analytics-panel">
+            <h3>Applications Per Job</h3>
+            <div id="applicationsPerJob"></div>
+        </div>
+
+        <!-- Pipeline Summary -->
+        <div class="analytics-panel">
+    <h3>Pipeline Summary</h3>
+
+
+
+    
+    <!-- Pending -->
+    <div class="pipeline-row">
+        <div class="pipeline-header">
+            <span>Pending</span>
+            <span id="pendingCount"></span>
+        </div>
+        <div class="pipeline-bar">
+            <div class="pipeline-fill" id="pendingBar"></div>
+        </div>
+    </div>
+
+    <!-- Interview Scheduled -->
+    <div class="pipeline-row">
+        <div class="pipeline-header">
+            <span>Interview Scheduled</span>
+            <span id="interviewCount"></span>
+        </div>
+        <div class="pipeline-bar">
+            <div class="pipeline-fill" id="interviewBar"></div>
+        </div>
+    </div>
+
+    <!-- Accepted -->
+    <div class="pipeline-row">
+        <div class="pipeline-header">
+            <span>Accepted</span>
+            <span id="acceptedCount"></span>
+        </div>
+        <div class="pipeline-bar">
+            <div class="pipeline-fill" id="acceptedBar"></div>
+        </div>
+    </div>
+
+    <!-- Rejected -->
+    <div class="pipeline-row">
+        <div class="pipeline-header">
+            <span>Rejected</span>
+            <span id="rejectedCount"></span>
+        </div>
+        <div class="pipeline-bar">
+            <div class="pipeline-fill" id="rejectedBar"></div>
+        </div>
+    </div>
+
+</div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
