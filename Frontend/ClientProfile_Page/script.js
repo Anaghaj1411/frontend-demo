@@ -126,7 +126,29 @@ document.getElementById("jobForm")?.addEventListener("submit", function(e) {
     const description = document.getElementById("description").value;
     const budget = document.getElementById("budget").value;
 
-    saveJob({ title, description, budget });
+    // Extended fields from create_job.html
+    const category = document.getElementById("category")?.value || "";
+    const job_type = document.getElementById("job_type")?.value || "";
+    const experience_level = document.getElementById("experience_level")?.value || "";
+    const project_duration = document.getElementById("project_duration")?.value || "";
+    const skills_required = document.getElementById("skills_required")?.value || "";
+    const location = document.getElementById("location")?.value || "";
+    const remote_allowed = !!document.getElementById("remote_allowed")?.checked;
+    const deadline = document.getElementById("deadline")?.value || "";
+
+    saveJob({
+        title,
+        description,
+        budget,
+        category,
+        job_type,
+        experience_level,
+        project_duration,
+        skills_required,
+        location,
+        remote_allowed,
+        deadline
+    });
     alert("Job Posted Successfully 🚀");
     navigate("job_listing.html");
 });
@@ -150,11 +172,51 @@ function renderJobs() {
         return;
     }
 
+    const categoryLabels = {
+        web_development: "Web Development",
+        mobile_development: "Mobile Development",
+        design: "Design & Creative",
+        writing: "Writing & Content",
+        marketing: "Marketing & Sales",
+        data_science: "Data Science & Analytics",
+        devops: "DevOps & Cloud",
+        other: "Other"
+    };
+
+    const experienceLabels = {
+        entry: "Entry Level",
+        intermediate: "Intermediate",
+        expert: "Expert"
+    };
+
+    const jobTypeLabels = {
+        freelance: "Freelance",
+        contract: "Contract",
+        part_time: "Part Time",
+        full_time: "Full Time"
+    };
+
+    const durationLabels = {
+        less_than_1_month: "Less than 1 month",
+        "1_3_months": "1-3 months",
+        "3_6_months": "3-6 months",
+        more_than_6_months: "More than 6 months"
+    };
+
     jobs.forEach(job => {
         const proposalCount = getProposals().filter(p => p.jobId === job.id).length;
 
         const div = document.createElement("div");
         div.className = "job-card";
+
+        const categoryText = job.category ? (categoryLabels[job.category] || job.category) : "Not specified";
+        const expText = job.experience_level ? (experienceLabels[job.experience_level] || job.experience_level) : "Any level";
+        const typeText = job.job_type ? (jobTypeLabels[job.job_type] || job.job_type) : "Flexible";
+        const durationText = job.project_duration ? (durationLabels[job.project_duration] || job.project_duration) : "Not specified";
+        const skillsText = job.skills_required || "Not specified";
+        const locationText = job.location || (job.remote_allowed ? "Remote" : "Not specified");
+        const remoteText = job.remote_allowed ? "Remote allowed" : "On-site / TBD";
+        const deadlineText = job.deadline ? job.deadline : "No deadline";
 
         div.innerHTML = `
             <div class="job-header">
@@ -162,6 +224,20 @@ function renderJobs() {
                 <span class="price">$${job.budget}</span>
             </div>
             <p class="description">${job.description}</p>
+            <div class="job-meta">
+                <span><strong>Category:</strong> ${categoryText}</span>
+                <span><strong>Type:</strong> ${typeText}</span>
+                <span><strong>Experience:</strong> ${expText}</span>
+                <span><strong>Duration:</strong> ${durationText}</span>
+            </div>
+            <div class="job-meta">
+                <span><strong>Skills:</strong> ${skillsText}</span>
+            </div>
+            <div class="job-meta">
+                <span><strong>Location:</strong> ${locationText}</span>
+                <span><strong>Work Mode:</strong> ${remoteText}</span>
+                <span><strong>Deadline:</strong> ${deadlineText}</span>
+            </div>
             <div class="job-footer">
     <span>${proposalCount} proposals</span>
     <div style="display:flex; gap:8px;">
@@ -706,89 +782,340 @@ function renderDashboardJobsAdvanced() {
 
 
 
+// Chart instances (reused for updates)
+let _analyticsStatusChart = null;
+let _analyticsPerJobChart = null;
+
+function updateAnalyticsCharts(jobs, applications, pending, interview, accepted, rejected) {
+    if (typeof Chart === "undefined") return;
+    const statusCanvas = document.getElementById("analyticsStatusChart");
+    const perJobCanvas = document.getElementById("analyticsPerJobChart");
+    if (!statusCanvas && !perJobCanvas) return;
+
+    const totalApps = applications.length;
+    const statusColors = ["#f59e0b", "#0ea5e9", "#10b981", "#ef4444"];
+    const statusLabels = ["Pending", "Interview Scheduled", "Accepted", "Rejected"];
+    const statusData = [pending, interview, accepted, rejected];
+
+    // 1) Status breakdown (doughnut)
+    if (statusCanvas) {
+        if (_analyticsStatusChart) {
+            _analyticsStatusChart.data.labels = statusLabels;
+            _analyticsStatusChart.data.datasets[0].data = statusData;
+            _analyticsStatusChart.update();
+        } else {
+            _analyticsStatusChart = new Chart(statusCanvas, {
+                type: "doughnut",
+                data: {
+                    labels: statusLabels,
+                    datasets: [{
+                        data: statusData,
+                        backgroundColor: statusColors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { position: "bottom" }
+                    }
+                }
+            });
+        }
+    }
+
+    // 2) Applications per job (horizontal bar) – top 10 jobs only; scale fits large counts (e.g. 30+ applicants)
+    if (perJobCanvas) {
+        const jobCounts = jobs.map(j => ({
+            job: j,
+            count: applications.filter(a => String(a.jobId) === String(j.id)).length
+        }));
+        jobCounts.sort((a, b) => b.count - a.count);
+        const topN = 10;
+        const forChart = jobCounts.slice(0, topN);
+
+        const jobTitles = forChart.map(({ job }) => {
+            const t = job.title || "Untitled Job";
+            return t.length > 28 ? t.slice(0, 25) + "…" : t;
+        });
+        const perJobCounts = forChart.map(({ count }) => count);
+        const maxCount = Math.max(0, ...perJobCounts);
+        const stepSize = maxCount > 20 ? (maxCount > 50 ? 10 : 5) : 1;
+
+        const noteEl = document.getElementById("analyticsPerJobNote");
+        if (noteEl) {
+            noteEl.textContent = jobs.length > topN ? " (top " + topN + " of " + jobs.length + " jobs)" : "";
+        }
+
+        const xTicks = { beginAtZero: true, ticks: { stepSize } };
+
+        if (_analyticsPerJobChart) {
+            _analyticsPerJobChart.data.labels = jobTitles;
+            _analyticsPerJobChart.data.datasets[0].data = perJobCounts;
+            _analyticsPerJobChart.options.scales.x = xTicks;
+            _analyticsPerJobChart.update();
+        } else {
+            _analyticsPerJobChart = new Chart(perJobCanvas, {
+                type: "bar",
+                data: {
+                    labels: jobTitles,
+                    datasets: [{
+                        label: "Applications",
+                        data: perJobCounts,
+                        backgroundColor: "rgba(43, 187, 173, 0.7)",
+                        borderColor: "#1fa59a",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: "y",
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    scales: { x: xTicks },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+    }
+}
+
 function renderAnalytics() {
 
     const totalJobsEl = document.getElementById("totalJobs");
-    if (!totalJobsEl) return; 
+    if (!totalJobsEl) return;
     // Not on analytics page
 
     const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-    const applications = JSON.parse(localStorage.getItem("applications")) || [];
+    const allApplications = JSON.parse(localStorage.getItem("applications")) || [];
 
-    // ===== KPI =====
+    // Cards and pipeline always use FULL data (no filter)
+    const applicationsForCounts = allApplications;
+
+    // ===== KPI (always full totals) =====
     document.getElementById("totalJobs").textContent = jobs.length;
-    document.getElementById("totalApplications").textContent = applications.length;
+    document.getElementById("totalApplications").textContent = applicationsForCounts.length;
 
-    // ===== Status Counts =====
+    // ===== Status counts (always full totals) =====
     let pending = 0;
     let interview = 0;
     let accepted = 0;
     let rejected = 0;
 
-    applications.forEach(app => {
+    applicationsForCounts.forEach(app => {
         if (app.status === "Pending" || !app.status) pending++;
         if (app.status === "Interview-Scheduled") interview++;
         if (app.status === "Accepted") accepted++;
         if (app.status === "Rejected") rejected++;
     });
 
-    // Update counts
     document.getElementById("pendingCount").textContent = pending;
+    const pendingCard = document.getElementById("pendingCardCount");
+    if (pendingCard) pendingCard.textContent = pending;
 
-const pendingCard = document.getElementById("pendingCardCount");
-if (pendingCard) {
-    pendingCard.textContent = pending;
-}
     document.getElementById("interviewCount").textContent = interview;
     document.getElementById("acceptedCount").textContent = accepted;
     document.getElementById("rejectedCount").textContent = rejected;
 
-    // ===== Applications Per Job =====
+    const interviewCard = document.getElementById("interviewCardCount");
+    if (interviewCard) interviewCard.textContent = interview;
+    const acceptedCard = document.getElementById("acceptedCardCount");
+    if (acceptedCard) acceptedCard.textContent = accepted;
+    const rejectedCard = document.getElementById("rejectedCardCount");
+    if (rejectedCard) rejectedCard.textContent = rejected;
+
+    // ===== Applications Per Job (always full counts) =====
     const perJobContainer = document.getElementById("applicationsPerJob");
     if (perJobContainer) {
-
         perJobContainer.innerHTML = "";
-
         if (jobs.length === 0) {
             perJobContainer.innerHTML = "<p>No jobs available.</p>";
+        } else {
+            jobs.forEach(job => {
+                const count = applicationsForCounts.filter(app =>
+                    String(app.jobId) === String(job.id)
+                ).length;
+                const div = document.createElement("div");
+                div.className = "job-row";
+                div.innerHTML = `
+                    <span>${job.title || "Untitled Job"}</span>
+                    <strong>${count} applications</strong>
+                `;
+                perJobContainer.appendChild(div);
+            });
+        }
+    }
+
+    // ===== Pipeline bars (always full totals) =====
+    const totalApplications = applicationsForCounts.length;
+    if (totalApplications > 0) {
+        const pendingPercent = (pending / totalApplications) * 100;
+        const interviewPercent = (interview / totalApplications) * 100;
+        const acceptedPercent = (accepted / totalApplications) * 100;
+        const rejectedPercent = (rejected / totalApplications) * 100;
+        document.getElementById("pendingBar").style.width = pendingPercent + "%";
+        document.getElementById("interviewBar").style.width = interviewPercent + "%";
+        document.getElementById("acceptedBar").style.width = acceptedPercent + "%";
+        document.getElementById("rejectedBar").style.width = rejectedPercent + "%";
+    } else {
+        document.getElementById("pendingBar").style.width = "0%";
+        document.getElementById("interviewBar").style.width = "0%";
+        document.getElementById("acceptedBar").style.width = "0%";
+        document.getElementById("rejectedBar").style.width = "0%";
+    }
+
+    // ===== Actions needed =====
+    const actionsEl = document.getElementById("analyticsActionsContent");
+    if (actionsEl) {
+        const needReview = pending;
+        const needSchedule = accepted; // accepted but not yet interview-scheduled in our simple model
+        const totalActions = needReview + needSchedule;
+        if (totalActions === 0) {
+            actionsEl.innerHTML = "<p class=\"analytics-actions-empty\"><i class=\"fas fa-check-circle\"></i> All caught up! No applications need your action right now.</p>";
+        } else {
+            let html = "<div class=\"analytics-actions-row\">";
+            if (needReview > 0) {
+                html += "<span><strong>" + needReview + "</strong> pending review</span>";
+                html += "<button type=\"button\" class=\"analytics-action-btn\" onclick=\"setAnalyticsFilter('Pending')\">View pending</button>";
+            }
+            if (needSchedule > 0) {
+                if (needReview > 0) html += " ";
+                html += "<span><strong>" + needSchedule + "</strong> accepted — schedule interview</span>";
+                html += "<button type=\"button\" class=\"analytics-action-btn\" onclick=\"setAnalyticsFilter('Accepted')\">View accepted</button>";
+            }
+            html += "</div>";
+            actionsEl.innerHTML = html;
+        }
+    }
+
+    // ===== Insights (conversion, most popular, pipeline health) =====
+    const insightsEl = document.getElementById("analyticsInsightsContent");
+    if (insightsEl) {
+        const totalApps = applicationsForCounts.length;
+        const acceptanceRate = totalApps > 0 ? ((accepted / totalApps) * 100).toFixed(1) : "0";
+        const interviewRate = totalApps > 0 ? ((interview / totalApps) * 100).toFixed(1) : "0";
+        const rejectionRate = totalApps > 0 ? ((rejected / totalApps) * 100).toFixed(1) : "0";
+
+        let mostPopularJob = null;
+        let mostPopularCount = 0;
+        jobs.forEach(job => {
+            const c = applicationsForCounts.filter(a => String(a.jobId) === String(job.id)).length;
+            if (c > mostPopularCount) {
+                mostPopularCount = c;
+                mostPopularJob = job;
+            }
+        });
+
+        const maxStatus = totalApps > 0 ? Math.max(pending, interview, accepted, rejected) : 0;
+        let bottleneck = "";
+        if (totalApps > 0 && maxStatus > 0) {
+            const pct = ((maxStatus / totalApps) * 100).toFixed(0);
+            if (pending === maxStatus) bottleneck = "Most applications (" + pct + "%) are in <strong>Pending</strong> — review them to move the pipeline.";
+            else if (interview === maxStatus) bottleneck = "Most applications (" + pct + "%) are <strong>Interview scheduled</strong>.";
+            else if (accepted === maxStatus) bottleneck = "Most applications (" + pct + "%) are <strong>Accepted</strong> — schedule interviews to progress.";
+            else if (rejected === maxStatus) bottleneck = pct + "% of applications are <strong>Rejected</strong>.";
         }
 
-        jobs.forEach(job => {
+        let html = "<div class=\"analytics-insights-grid\">";
+        html += "<div class=\"analytics-insight-item insight-acceptance\"><span class=\"insight-label\">Acceptance rate</span><span class=\"insight-value\">" + acceptanceRate + "%</span></div>";
+        html += "<div class=\"analytics-insight-item insight-interview\"><span class=\"insight-label\">Interview rate</span><span class=\"insight-value\">" + interviewRate + "%</span></div>";
+        html += "<div class=\"analytics-insight-item insight-rejection\"><span class=\"insight-label\">Rejection rate</span><span class=\"insight-value\">" + rejectionRate + "%</span></div>";
+        html += "</div>";
+        if (mostPopularJob && mostPopularCount > 0) {
+            const title = (mostPopularJob.title || "Untitled Job").length > 40 ? (mostPopularJob.title || "Untitled Job").slice(0, 37) + "…" : (mostPopularJob.title || "Untitled Job");
+            html += "<p class=\"analytics-most-popular\"><i class=\"fas fa-fire\"></i> Most applications: <strong>" + title + "</strong> (" + mostPopularCount + ")</p>";
+        }
+        if (bottleneck) {
+            html += "<p class=\"analytics-bottleneck\"><i class=\"fas fa-info-circle\"></i> " + bottleneck + "</p>";
+        }
+        insightsEl.innerHTML = html;
+    }
 
-            const count = applications.filter(app =>
-                String(app.jobId) === String(job.id)
-            ).length;
+    // ===== Charts =====
+    updateAnalyticsCharts(jobs, applicationsForCounts, pending, interview, accepted, rejected);
 
-            const div = document.createElement("div");
-            div.className = "job-row";
+    // ===== Filtered applications list (by selected pill + search) =====
+    const activeFilterBtn = document.querySelector(".analytics-filter-btn.active");
+    const selectedStatus = activeFilterBtn ? activeFilterBtn.dataset.status : "all";
 
-            div.innerHTML = `
-                <span>${job.title || "Untitled Job"}</span>
-                <strong>${count} applications</strong>
-            `;
-
-            perJobContainer.appendChild(div);
+    let filteredApps = allApplications;
+    if (selectedStatus !== "all") {
+        filteredApps = allApplications.filter(app => {
+            const status = app.status || "Pending";
+            return status === selectedStatus;
         });
     }
 
-    // ===== Pipeline Bars =====
+    const searchInput = document.getElementById("analyticsListSearch");
+    const searchQuery = (searchInput && searchInput.value.trim()) ? searchInput.value.trim().toLowerCase() : "";
+    if (searchQuery) {
+        filteredApps = filteredApps.filter(app => {
+            const job = jobs.find(j => String(j.id) === String(app.jobId));
+            const jobTitle = (job ? (job.title || "") : "").toLowerCase();
+            const applicantName = (app.name || "").toLowerCase();
+            return jobTitle.includes(searchQuery) || applicantName.includes(searchQuery);
+        });
+    }
 
-    const totalApplications = applications.length;
-    if (totalApplications === 0) return;
-
-    const pendingPercent = (pending / totalApplications) * 100;
-    const interviewPercent = (interview / totalApplications) * 100;
-    const acceptedPercent = (accepted / totalApplications) * 100;
-    const rejectedPercent = (rejected / totalApplications) * 100;
-
-    document.getElementById("pendingBar").style.width = pendingPercent + "%";
-    document.getElementById("interviewBar").style.width = interviewPercent + "%";
-    document.getElementById("acceptedBar").style.width = acceptedPercent + "%";
-    document.getElementById("rejectedBar").style.width = rejectedPercent + "%";
+    const listTitleEl = document.getElementById("analyticsListTitle");
+    const listContainer = document.getElementById("analyticsApplicationList");
+    if (listTitleEl) {
+        const statusLabel = selectedStatus === "all" ? "All" : selectedStatus.replace("-", " ");
+        listTitleEl.innerHTML = "<i class=\"fas fa-list-check\"></i> Applications — " + statusLabel + " (" + filteredApps.length + ")";
+    }
+    if (listContainer) {
+        listContainer.innerHTML = "";
+        if (filteredApps.length === 0) {
+            listContainer.innerHTML = "<p class=\"analytics-list-empty\">No applications match your search.</p>";
+        } else {
+            filteredApps.forEach(app => {
+                const job = jobs.find(j => String(j.id) === String(app.jobId));
+                const jobTitle = job ? (job.title || "Untitled Job") : "Unknown job";
+                const status = app.status || "Pending";
+                const statusClass = "status-" + (status || "pending").toLowerCase().replace("-", "-");
+                const row = document.createElement("div");
+                row.className = "analytics-app-row";
+                row.innerHTML = `
+                    <span class="analytics-app-job">${jobTitle}</span>
+                    <span class="analytics-app-name">${app.name || "—"}</span>
+                    <span class="analytics-app-status ${statusClass}">${status.replace("-", " ")}</span>
+                    <a href="proposals.html?jobId=${app.jobId}" class="analytics-app-link">View <i class="fas fa-arrow-right"></i></a>
+                `;
+                listContainer.appendChild(row);
+            });
+        }
+    }
 }
 
 // Safe load
-document.addEventListener("DOMContentLoaded", renderAnalytics);
+document.addEventListener("DOMContentLoaded", () => {
+    renderAnalytics();
+
+    const filterButtons = document.querySelectorAll(".analytics-filter-btn");
+    filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            filterButtons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            renderAnalytics();
+        });
+    });
+
+    const listSearch = document.getElementById("analyticsListSearch");
+    if (listSearch) {
+        listSearch.addEventListener("input", renderAnalytics);
+    }
+});
+
+function setAnalyticsFilter(status) {
+    const btn = document.querySelector(".analytics-filter-btn[data-status=\"" + status + "\"]");
+    if (btn) {
+        document.querySelectorAll(".analytics-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderAnalytics();
+        const panel = document.getElementById("analyticsApplicationListPanel");
+        if (panel) panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
 
 
 
