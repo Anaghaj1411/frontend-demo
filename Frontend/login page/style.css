@@ -14,7 +14,7 @@
 ===================================== */
 body {
   height: 100vh;
-  background: linear-gradient(120deg, #5f7483, #6c8da4); /* keep light bg */
+  background: #eef2f7; /* Match dashboard background */
 }
 
 .page {
@@ -47,7 +47,7 @@ body {
 }
 
 .logo span {
-  color: #001f4d; /* navy accent for logo */
+  color: #1fa59a; /* teal accent for logo - match dashboard */
 }
 
 .subtitle {
@@ -78,7 +78,7 @@ body {
   left: 0;                  
   width: 50%;               
   height: calc(100% - 8px);
-  background: #001f4d; /* navy */
+  background: linear-gradient(180deg, #2bbbad, #1fa59a); /* teal gradient - match dashboard */
   border-radius: 8px;
   transition: left 0.3s ease;
   z-index: 0;
@@ -131,7 +131,7 @@ body {
 
 .input-group input:focus {
   outline: none;
-  border-bottom-color: #001f4d; /* navy focus */
+  border-bottom-color: #1fa59a; /* teal focus - match dashboard */
   transform: translateY(-4px);
 }
 
@@ -166,7 +166,7 @@ body {
 
 .forgot a {
   font-size: 13px;
-  color: #001f4d; /* navy */
+  color: #1fa59a; /* teal - match dashboard */
   text-decoration: none;
 }
 
@@ -181,20 +181,20 @@ body {
   width: 100%;
   max-width: 100%;
   padding: 13px;
-  background: linear-gradient(90deg, #001f4d, #003366); /* navy gradient */
+  background: linear-gradient(90deg, #2bbbad, #1fa59a); /* teal gradient - match dashboard */
   border: none;
   border-radius: 12px;
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(0, 31, 77, 0.35);
+  box-shadow: 0 10px 20px rgba(31, 165, 154, 0.35);
   transition: all 0.25s ease;
 }
 
 .login-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(0, 31, 77, 0.45);
+  box-shadow: 0 14px 28px rgba(31, 165, 154, 0.45);
 }
 
 .login-btn:active {
@@ -249,7 +249,7 @@ body {
 
 .social-login button:hover {
   transform: translateY(-2px);
-  border-color: #001f4d; /* navy border */
+  border-color: #1fa59a; /* teal border - match dashboard */
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
@@ -267,7 +267,7 @@ body {
 }
 
 .register a {
-  color: #001f4d; /* navy link */
+  color: #1fa59a; /* teal link - match dashboard */
   font-weight: 500;
   text-decoration: none;
 }

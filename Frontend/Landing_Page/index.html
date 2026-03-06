@@ -5,132 +5,476 @@
   <title>SkillSync – Connecting Talent</title>
   <link rel="stylesheet" href="styles.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+<!-- Animated Background -->
+<div class="animated-bg">
+  <div class="floating-shapes"></div>
+  <div class="gradient-overlay"></div>
+</div>
+
 <!-- NAVBAR -->
 <header class="navbar">
-  <div class="logo">⚡ SkillSync</div>
-  <nav>
-    <a href="#dashboard">Dashboard</a>
-    <a href="#jobs">Jobs</a>
-    <a href="#messages">Messages</a>
-    <span class="badge">Client</span>
-    <button class="logout-btn">Logout</button>
-  </nav>
+  <div class="nav-container">
+    <div class="logo">
+      <i class="fas fa-bolt"></i>
+      <span>SkillSync</span>
+    </div>
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+            <a href="press.html" class="nav-link">Press</a>
+      <a href="../login page/login.html" class="login-btn">Login</a>
+    </nav>
+    <div class="mobile-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-  <span class="pill">🚀 The Future of Freelancing</span>
-  <h1>Connecting Clients with <br><span>Skilled Freelancers</span></h1>
-  <p>
-    SkillSync makes it easy to find, hire, and collaborate with top talent.
-    Say goodbye to endless searching.
-  </p>
-  <div class="cta">
-    <button class="primary-btn">Get Started →</button>
-    <button class="secondary-btn">Login</button>
+  <div class="hero-content">
+    <div class="hero-text">
+      <span class="pill animate-fade-in">
+        <i class="fas fa-rocket"></i>
+        The Future of Freelancing
+      </span>
+      <h1 class="animate-slide-up">
+        Connecting Clients with <br><span class="gradient-text">Skilled Freelancers</span>
+      </h1>
+      <p class="animate-fade-in-delay">
+        SkillSync makes it easy to find, hire, and collaborate with top talent.
+        Say goodbye to endless searching.
+      </p>
+      <div class="cta animate-scale-up">
+        <button class="primary-btn">
+          <span>Get Started</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="secondary-btn">
+          <i class="fas fa-sign-in-alt"></i>
+          <span>Login</span>
+        </button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card">
+        <div class="card-header">
+          <div class="avatar"></div>
+          <div class="card-info">
+            <h4>Sarah Johnson</h4>
+            <p>UI/UX Designer</p>
+          </div>
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <span>4.9</span>
+          </div>
+        </div>
+        <div class="card-skills">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">CSS</span>
+        </div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="project-card">
+          <div class="project-header">
+            <h4>Mobile App Design</h4>
+            <span class="budget">$5,000</span>
+          </div>
+          <div class="project-meta">
+            <span><i class="fas fa-clock"></i> 2 weeks</span>
+            <span><i class="fas fa-user"></i> 15 applicants</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="stats-section">
+  <div class="stats-container">
+    <div class="stat-card animate-counter">
+      <div class="stat-icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-number" data-target="50000">0</h3>
+        <p>Active Freelancers</p>
+      </div>
+    </div>
+    <div class="stat-card animate-counter">
+      <div class="stat-icon">
+        <i class="fas fa-briefcase"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-number" data-target="12000">0</h3>
+        <p>Projects Completed</p>
+      </div>
+    </div>
+    <div class="stat-card animate-counter">
+      <div class="stat-icon">
+        <i class="fas fa-globe"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-number" data-target="150">0</h3>
+        <p>Countries Served</p>
+      </div>
+    </div>
+    <div class="stat-card animate-counter">
+      <div class="stat-icon">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div class="stat-content">
+        <h3 class="stat-number" data-target="25">0</h3>
+        <p>Million in Earnings</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PROBLEM -->
 <section class="section light">
-  <h2>The Problem We Solve</h2>
-  <p class="subtitle">
-    Traditional platforms make hiring harder than it should be.
-  </p>
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>The Problem We Solve</h2>
+      <p class="subtitle">
+        Traditional platforms make hiring harder than it should be.
+      </p>
+    </div>
 
-  <div class="cards">
-    <div class="card problem">
-      <h3>Hard to Find Talent</h3>
-      <p>Thousands of unverified profiles waste time and money.</p>
-    </div>
-    <div class="card problem">
-      <h3>Trust Issues</h3>
-      <p>No reliable way to verify skills or past work.</p>
-    </div>
-    <div class="card problem">
-      <h3>Payment Hassles</h3>
-      <p>Delayed payments and complex invoicing frustrate users.</p>
+    <div class="cards">
+      <div class="card problem animate-slide-up">
+        <div class="card-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>Hard to Find Talent</h3>
+        <p>Thousands of unverified profiles waste time and money.</p>
+      </div>
+      <div class="card problem animate-slide-up" style="animation-delay: 0.1s">
+        <div class="card-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Trust Issues</h3>
+        <p>No reliable way to verify skills or past work.</p>
+      </div>
+      <div class="card problem animate-slide-up" style="animation-delay: 0.2s">
+        <div class="card-icon">
+          <i class="fas fa-credit-card"></i>
+        </div>
+        <h3>Payment Hassles</h3>
+        <p>Delayed payments and complex invoicing frustrate users.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WHY CHOOSE -->
 <section class="section">
-  <h2>Why Choose SkillSync?</h2>
-  <p class="subtitle">
-    Everything you need to hire or get hired — in one place.
-  </p>
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>Why Choose SkillSync?</h2>
+      <p class="subtitle">
+        Everything you need to hire or get hired — in one place.
+      </p>
+    </div>
 
-  <div class="cards">
-    <div class="card feature">🔍 Smart Matching</div>
-    <div class="card feature">🛡 Verified Profiles</div>
-    <div class="card feature">💳 Secure Payments</div>
-    <div class="card feature">⭐ Ratings & Reviews</div>
-    <div class="card feature">📊 Project Management</div>
-    <div class="card feature">🌍 Global Talent Pool</div>
+    <div class="features-grid">
+      <div class="feature-card animate-scale-up">
+        <div class="feature-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <h3>Smart Matching</h3>
+        <p>Advanced matching system connects you with the perfect talent or project</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.1s">
+        <div class="feature-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h3>Verified Profiles</h3>
+        <p>All freelancers undergo rigorous verification process</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.2s">
+        <div class="feature-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h3>Secure Payments</h3>
+        <p>Escrow system ensures safe and timely payments</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.3s">
+        <div class="feature-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <h3>Ratings & Reviews</h3>
+        <p>Transparent feedback system builds trust</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.4s">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Project Management</h3>
+        <p>Built-in tools for seamless collaboration</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.5s">
+        <div class="feature-icon">
+          <i class="fas fa-globe"></i>
+        </div>
+        <h3>Global Talent Pool</h3>
+        <p>Access to skilled professionals worldwide</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECRUITER FEATURES -->
+<section class="section light">
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>Powerful Recruiter Tools</h2>
+      <p class="subtitle">
+        Everything you need to find, evaluate, and hire top talent efficiently.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card animate-scale-up">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <h3>Browse Talent Pool</h3>
+        <p>Access thousands of verified freelancers with detailed profiles and portfolios</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.1s">
+        <div class="feature-icon">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <h3>Schedule Interviews</h3>
+        <p>Set up interviews directly through the platform with calendar integration</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.2s">
+        <div class="feature-icon">
+          <i class="fas fa-file-contract"></i>
+        </div>
+        <h3>Send Proposals</h3>
+        <p>Review applications and send acceptance letters with one click</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.3s">
+        <div class="feature-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3>Track Progress</h3>
+        <p>Monitor project milestones and freelancer performance in real-time</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.4s">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Verified Skills</h3>
+        <p>All freelancer credentials and skills are thoroughly verified</p>
+      </div>
+      <div class="feature-card animate-scale-up" style="animation-delay: 0.5s">
+        <div class="feature-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h3>Direct Messaging</h3>
+        <p>Communicate directly with candidates through our secure messaging system</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- JOIN -->
 <section class="section light">
-  <h2>Join SkillSync Today</h2>
-  <p class="subtitle">
-    Whether you want to hire or get hired — we’ve got you covered.
-  </p>
-
-  <div class="join-box">
-    <div class="join-card">
-      <h3>Join as Client</h3>
-      <p>Post projects and hire verified freelancers.</p>
-      <button class="primary-btn">Get Started as Client</button>
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>Join SkillSync Today</h2>
+      <p class="subtitle">
+        Whether you want to hire or get hired — we've got you covered.
+      </p>
     </div>
-    <div class="join-card outline">
-      <h3>Join as Freelancer</h3>
-      <p>Showcase your skills and get exciting projects.</p>
-      <button class="secondary-btn">Get Started as Freelancer</button>
+
+    <div class="join-box">
+      <div class="join-card animate-slide-up">
+        <div class="join-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <h3>Join as Client</h3>
+        <p>Post projects and hire verified freelancers.</p>
+        <button class="primary-btn">
+          <span>Get Started as Client</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      <div class="join-card outline animate-slide-up" style="animation-delay: 0.1s">
+        <div class="join-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3>Join as Freelancer</h3>
+        <p>Showcase your skills and get exciting projects.</p>
+        <button class="secondary-btn">
+          <i class="fas fa-rocket"></i>
+          <span>Get Started as Freelancer</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="section">
-  <h2>How It Works</h2>
-  <p class="subtitle">Get started in just 4 simple steps</p>
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>How It Works</h2>
+      <p class="subtitle">Get started in just 4 simple steps</p>
+    </div>
 
-  <div class="steps">
-    <div class="step">① Create Profile</div>
-    <div class="step">② Find Match</div>
-    <div class="step">③ Collaborate</div>
-    <div class="step">④ Get Paid</div>
+    <div class="timeline">
+      <div class="timeline-item animate-slide-up">
+        <div class="timeline-number">1</div>
+        <div class="timeline-content">
+          <h3>Create Profile</h3>
+          <p>Sign up and build your professional profile</p>
+        </div>
+      </div>
+      <div class="timeline-item animate-slide-up" style="animation-delay: 0.1s">
+        <div class="timeline-number">2</div>
+        <div class="timeline-content">
+          <h3>Find Match</h3>
+          <p>Our smart system matches you with perfect opportunities</p>
+        </div>
+      </div>
+      <div class="timeline-item animate-slide-up" style="animation-delay: 0.2s">
+        <div class="timeline-number">3</div>
+        <div class="timeline-content">
+          <h3>Collaborate</h3>
+          <p>Work together using our built-in tools</p>
+        </div>
+      </div>
+      <div class="timeline-item animate-slide-up" style="animation-delay: 0.3s">
+        <div class="timeline-number">4</div>
+        <div class="timeline-content">
+          <h3>Get Paid</h3>
+          <p>Secure and timely payment processing</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section light">
+  <div class="container">
+    <div class="section-header animate-fade-in">
+      <h2>What Our Users Say</h2>
+      <p class="subtitle">Real stories from real people</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card animate-scale-up">
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p>"SkillSync transformed my freelance career. I found amazing projects and clients who value my work."</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar"></div>
+          <div class="author-info">
+            <h4>Alex Chen</h4>
+            <p>Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-scale-up" style="animation-delay: 0.1s">
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p>"The verification process gives me confidence. I've hired 5 amazing freelancers through SkillSync."</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar"></div>
+          <div class="author-info">
+            <h4>Emily Rodriguez</h4>
+            <p>Startup Founder</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card animate-scale-up" style="animation-delay: 0.2s">
+        <div class="testimonial-content">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p>"Secure payments and great project management tools make collaboration seamless."</p>
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar"></div>
+          <div class="author-info">
+            <h4>Michael Park</h4>
+            <p>Marketing Manager</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div>
-    <h4>SkillSync</h4>
-    <p>Connecting talent with opportunity.</p>
-  </div>
-  <div>
-    <h4>Platform</h4>
-    <a>Browse Jobs</a>
-    <a>Find Talent</a>
-    <a>Pricing</a>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <a>About</a>
-    <a>Careers</a>
-    <a>Blog</a>
-  </div>
-  <div>
-    <h4>Support</h4>
-    <a>Help Center</a>
-    <a>Contact</a>
-    <a>Privacy Policy</a>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <i class="fas fa-bolt"></i>
+          <span>SkillSync</span>
+        </div>
+        <p>Connecting talent with opportunity.</p>
+              </div>
+      <div class="footer-section">
+        <h4>Platform</h4>
+        <a href="#">Find Talent</a>
+        <a href="working.html">How it Works</a>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="press.html">Press</a>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <a href="help-center.html">Help Center</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-service.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 SkillSync. All rights reserved.</p>
+    </div>
   </div>
 </footer>
 
