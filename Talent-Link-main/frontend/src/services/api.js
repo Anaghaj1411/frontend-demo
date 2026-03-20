@@ -34,7 +34,7 @@ api.interceptors.request.use(async (config) => {
     if (!csrfToken) {
       // Fetch CSRF token from the server
       try {
-        const resp = await axios.get(`${API_BASE_URL}/csrf/`, { withCredentials: true });
+        const resp = await axios.get(`${API_BASE_URL}/api/csrf/`, { withCredentials: true });
         csrfToken = getCookie('csrftoken') || resp.data?.csrfToken;
       } catch (e) {
         console.warn('Could not fetch CSRF token');
