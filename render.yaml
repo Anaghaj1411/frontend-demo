@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: talentlink-backend
+    env: python
+    plan: free
+    buildCommand: cd Talent-Link-main/backend && pip install -r requirements-simple.txt && python manage.py migrate && python manage.py collectstatic --noinput
+    startCommand: cd Talent-Link-main/backend && gunicorn backend.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: backend.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
