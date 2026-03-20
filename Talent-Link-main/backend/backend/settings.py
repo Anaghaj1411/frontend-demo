@@ -34,12 +34,7 @@ ALLOWED_HOSTS = ['talentlink-backend.onrender.com', '.onrender.com', 'localhost'
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
-    CORS_ALLOWED_ORIGINS = [
-        "https://frontend-demo-fk92g28bm-anaghajayachandran11-5348s-projects.vercel.app",
-        "https://frontend-demo-60c7cqedq-anaghajayachandran11-5348s-projects.vercel.app",
-        "https://talentlink-frontend.vercel.app", 
-        "http://localhost:3000"
-    ]
+    CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins for production
     
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
@@ -49,6 +44,7 @@ CORS_ALLOW_HEADERS = [
 
 # CSRF settings for cross-origin
 CSRF_TRUSTED_ORIGINS = [
+    'https://frontend-demo-9xu4pe1mf-anaghajayachandran11-5348s-projects.vercel.app',
     'https://frontend-demo-fk92g28bm-anaghajayachandran11-5348s-projects.vercel.app',
     'https://frontend-demo-60c7cqedq-anaghajayachandran11-5348s-projects.vercel.app',
     'https://talentlink-frontend.vercel.app',
