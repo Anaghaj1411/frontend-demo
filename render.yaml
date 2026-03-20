@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: cd Talent-Link-main/backend && pip install -r requirements-simple.txt && python manage.py migrate && python manage.py collectstatic --noinput
-    startCommand: cd Talent-Link-main/backend && gunicorn backend.wsgi:application
+    startCommand: cd Talent-Link-main/backend && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
