@@ -24,6 +24,10 @@ DATABASES = {
     }
 }
 
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 ALLOWED_HOSTS = ['talentlink-backend.onrender.com', '.onrender.com', 'localhost', '127.0.0.1']
 
 # CORS settings for production
