@@ -1308,47 +1308,6 @@ const HelpCenter = () => {
 };
 
 
-// ─── Recruiter Job Card ─────────
-const RecruiterJobCard = ({ job, onViewApps, onDelete }) => (
-  <motion.div
-    className="job-card"
-    whileHover={{ y: -4 }}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-  >
-    <div className="job-card-header">
-      <div>
-        <h3 style={{ fontSize: '1.05rem', marginBottom: 4 }}>{job.title}</h3>
-        <span style={{ fontSize: '0.8rem', color: '#9CA3AF', textTransform: 'capitalize' }}>
-          {job.job_type?.replace('_', ' ')} · {job.location || 'Remote'}
-        </span>
-      </div>
-      <span className={`job-status-badge badge-${job.status}`}>{job.status}</span>
-    </div>
-    <p className="job-card-description">{job.description}</p>
-    <div className="job-card-skills">
-      {(job.required_skills || []).slice(0, 3).map((skill, i) => (
-        <span key={i} className="skill-tag">{skill}</span>
-      ))}
-    </div>
-    <div className="job-card-footer">
-      <div className="job-pay">${job.pay_per_hour}<span>/hr</span></div>
-      <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-        <span style={{ fontSize: '0.85rem', color: '#6B7280', fontWeight: 500 }}>
-          {job.applicants_count} applicants
-        </span>
-        <button className="btn-secondary" style={{ padding: '6px 14px', fontSize: '0.8rem' }} onClick={() => onViewApps(job.id)}>
-          <FiEye style={{ marginRight: 4 }} /> Review
-        </button>
-        <button className="btn-danger" style={{ padding: '6px 14px', fontSize: '0.8rem' }} onClick={() => onDelete(job.id)}>
-          <FiTrash2 />
-        </button>
-      </div>
-    </div>
-  </motion.div>
-);
-
-
 // ─── Create Job Form ─────────
 const CreateJobForm = ({ onSuccess }) => {
   const [form, setForm] = useState({

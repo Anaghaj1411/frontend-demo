@@ -485,7 +485,6 @@ const FreelancerDashboard = () => {
     if (selectedFreelancerProject) {
       const proj = selectedFreelancerProject;
       const myTasks = (proj.tasks || []).filter(t => t.assigned_to === user?.id);
-      const otherTasks = (proj.tasks || []).filter(t => t.assigned_to !== user?.id);
 
       return (
         <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
