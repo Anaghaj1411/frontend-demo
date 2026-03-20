@@ -148,17 +148,11 @@ def job_detail(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def create_job(request):
-    if request.user.role != 'recruiter':
-        return Response({'error': 'Only recruiters can post jobs'}, status=status.HTTP_403_FORBIDDEN)
-
     serializer = JobSerializer(data=request.data, context={'request': request})
     if serializer.is_valid():
-        job = serializer.save(recruiter=request.user)
-        # Update recruiter's total jobs count
-        profile = request.user.recruiter_profile
-        profile.total_jobs_posted += 1
-        profile.save()
+        job = serializer.save()
         return Response(JobSerializer(job, context={'request': request}).data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -188,11 +182,10 @@ def delete_job(request, pk):
 
 
 @api_view(['GET'])
+@permission_classes([permissions.AllowAny])
 def my_jobs(request):
-    """Get jobs posted by the recruiter"""
-    if request.user.role != 'recruiter':
-        return Response({'error': 'Only recruiters can view their jobs'}, status=status.HTTP_403_FORBIDDEN)
-    jobs = Job.objects.filter(recruiter=request.user)
+    """Get all jobs (no authentication required)"""
+    jobs = Job.objects.all()
     serializer = JobSerializer(jobs, many=True, context={'request': request})
     return Response(serializer.data)
 
@@ -311,8 +304,9 @@ def update_application_status(request, pk):
 # ─── Notification Views ─────────────────────────────────────
 
 @api_view(['GET'])
+@permission_classes([permissions.AllowAny])
 def notifications(request):
-    notifs = Notification.objects.filter(user=request.user)
+    notifs = Notification.objects.all()
     serializer = NotificationSerializer(notifs, many=True)
     return Response(serializer.data)
 

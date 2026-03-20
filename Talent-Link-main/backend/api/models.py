@@ -47,7 +47,7 @@ class RecruiterProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='recruiter_profile')
     company_name = models.CharField(max_length=200, blank=True, null=True)
     company_website = models.URLField(blank=True, null=True)
-    company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+    # company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)  # Temporarily disabled for deployment
     company_description = models.TextField(blank=True, null=True)
     industry = models.CharField(max_length=100, blank=True, null=True)
     company_size = models.CharField(max_length=50, blank=True, null=True)
