@@ -3,7 +3,7 @@ services:
     name: talentlink-backend
     env: python
     plan: free
-    buildCommand: cd Talent-Link-main/backend && pip install -r requirements-simple.txt && python manage.py migrate && python manage.py collectstatic --noinput
+    buildCommand: cd Talent-Link-main/backend && pip install -r requirements-wheels.txt
     startCommand: cd Talent-Link-main/backend && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
