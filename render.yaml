@@ -3,7 +3,7 @@ services:
     name: talentlink-backend
     env: python
     plan: free
-    buildCommand: cd Talent-Link-main/backend && pip install Django==6.0.2 djangorestframework==3.16.1 django-cors-headers==4.9.0 python-dotenv==1.2.2 Pillow==12.1.1 && python manage.py migrate
+    buildCommand: cd Talent-Link-main/backend && pip install Django==6.0.2 djangorestframework==3.16.1 django-cors-headers==4.9.0 python-dotenv==1.2.2 Pillow==12.1.1 gunicorn && python manage.py migrate
     startCommand: cd Talent-Link-main/backend && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT
     envVars:
       - key: PYTHON_VERSION
