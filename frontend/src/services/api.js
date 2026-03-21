@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://YOUR-BACKEND-URL.onrender.com/api';
+const API_BASE_URL = 'https://frontend-demo-fq1w.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -34,7 +34,7 @@ api.interceptors.request.use(async (config) => {
     if (!csrfToken) {
       // Fetch CSRF token from the server
       try {
-        const resp = await axios.get('/api/csrf/', { withCredentials: true });
+        const resp = await axios.get(`${API_BASE_URL}/csrf/`, { withCredentials: true });
         csrfToken = getCookie('csrftoken') || resp.data?.csrfToken;
       } catch (e) {
         console.warn('Could not fetch CSRF token');
